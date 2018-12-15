@@ -1,0 +1,21 @@
+###############################################################################
+#
+# Source this in .bash_profile and have metasploit commands on your console...
+#
+# https://github.com/rapid7/metasploit-framework/tree/master/docker
+#
+###############################################################################
+
+# Docker compose file location
+#msf_dockerfile="/Users/matt/git/docker-msf/docker-compose.yml"
+
+#alias msfconsole='docker-compose -f $msf_dockerfile run --rm --service-ports -e MSF_UID=$(id -u) -e MSF_GID=$(id -g) ms'
+#alias msfvenom='docker-compose -f $msf_dockerfile run --rm --no-deps -e MSF_UID=$(id -u) -e MSF_GID=$(id -g) ms ./msfvenom'
+#alias msfrpc='docker-compose -f $msf_dockerfile run --rm --no-deps -e MSF_UID=$(id -u) -e MSF_GID=$(id -g) ms ruby msfrpc'
+
+msf_launcher="/Users/matt/git/docker-msf/msf.sh"
+
+alias msfconsole='sh -c $msf_launcher'
+alias msfvenom='docker run -it --rm msf msfvenom'
+alias msfrpc='docker run -it --rm msf msfrpc'
+alias msfrpcd='docker run -it -p 55553:55553 --rm msf msfrpcd'

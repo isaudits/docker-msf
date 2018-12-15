@@ -1,0 +1,6 @@
+<ruby>
+if ENV['MSF_LHOST']
+  lhost = ENV['MSF_LHOST']
+  run_single("setg LHOST #{lhost}")
+end
+</ruby>
