@@ -2,5 +2,6 @@
 if ENV['MSF_LHOST']
   lhost = ENV['MSF_LHOST']
   run_single("setg LHOST #{lhost}")
+  run_single("db_connect postgres://#{ENV['MSF_DB_USER']}:#{ENV['MSF_DB_PASS']}@#{ENV['MSF_DB_HOST']}:#{ENV['MSF_DB_PORT']}/#{ENV['MSF_DB']}")
 end
 </ruby>

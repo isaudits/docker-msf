@@ -84,20 +84,24 @@ RUN apt-get -y update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Configure postgres
-RUN /etc/init.d/postgresql start && \
-    su postgres -c 'echo -e "msfdb\nmsfdb" | createuser -SRPD msf' && \
-    su postgres -c 'createdb -O msf msf'
-
 ENV MSF_RPC_USER='admin' \
     MSF_RPC_PASS='changeyourpassword' \
     MSF_RPC_PORT='55553' \
+    MSF_DB='msf' \
+    MSF_DB_HOST='127.0.0.1' \
+    MSF_DB_PORT='5432' \
+    MSF_DB_USER='msf' \
+    MSF_DB_PASS='msfdb' \
     MSF_LHOST='0.0.0.0' \
     MSF_LPORT='8443'
 
+# Configure postgres
+RUN /etc/init.d/postgresql start && \
+    su postgres -c 'echo -e "$MSF_DB_PASS\n$MSF_DB_PASS" | createuser -SRPD $MSF_DB_USER' && \
+    su postgres -c 'createdb -O $MSF_DB_USER $MSF_DB'
+
 ADD msfconsole.sh /opt/msfconsole.sh
 ADD msfconsole.rc /opt/msfconsole.rc
-ADD database.yml /opt/metasploit/config/database.yml
 
 WORKDIR /opt/metasploit/
 
