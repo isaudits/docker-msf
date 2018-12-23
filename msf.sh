@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# If command arguments are passed, run empire with those arguments;
-# otherwise, auto-run listener start resource script
+# If command arguments are passed, run command as-is;
+# otherwise, auto-run msfconsole
 if [ "$#" -ne 0 ]; then
     COMMAND=$@
 else
@@ -16,7 +16,7 @@ then
     --net=host \
     -e MSF_LHOST=$HOST_IP \
     -v $HOME/.msf4:/home/msf/.msf4 \
-    -v msf_pg_data:/var/lib/postgresql/data \
+    -v msf_pg_data:/var/lib/postgresql/9.6/main \
     msf $COMMAND
 else
     HOST_IP=$(ifconfig en0 | awk '/ *inet /{print $2}')
@@ -25,7 +25,7 @@ else
     -p 80:80 -p 443:443 -p 4443:4443 -p 4444:4444 -p 8080:8080 -p 8443:8443 -p 55553:55553 \
     -e MSF_LHOST=$HOST_IP \
     -v $HOME/.msf4:/home/msf/.msf4 \
-    -v msf_pg_data:/var/lib/postgresql/data \
+    -v msf_pg_data:/var/lib/postgresql/9.6/main \
     msf $COMMAND
 fi
 
