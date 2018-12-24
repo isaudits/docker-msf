@@ -22,7 +22,9 @@ have to rebuild or re-pull to get framework updates.
 ## Build Notes
 main image:
 
-    docker build -t msf .
+pull
+
+    docker pull isaudits/msf
     
 or
 
@@ -30,7 +32,9 @@ or
     
 minimal image:
 
-    docker build -t msf-minimal -f Dockerfile-min .
+pull
+
+    docker pull isaudits/msfminimal
     
 or
 

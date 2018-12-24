@@ -1,5 +1,5 @@
 #!/bin/bash
 
 #docker pull debian:stable
-docker build -t msf .
+docker build -t isaudits/msf .
 docker image prune -f
