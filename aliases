@@ -8,6 +8,7 @@
 msf_launcher="$HOME/git/docker-msf/msf.sh"
 
 alias msfconsole='sh -c $msf_launcher'
+alias msflisten='$msf_launcher sh /opt/msfconsole.sh -q -r /opt/multihandler.rc'
 alias msfvenom='docker run -it --rm isaudits/msf msfvenom'
 alias msfrpc='docker run -it --rm isaudits/msf msfrpc'
 alias msfrpcd='docker run -it -p 55553:55553 --rm isaudits/msf msfrpcd'

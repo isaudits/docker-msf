@@ -2,4 +2,4 @@
 
 rm -r /var/run/postgresql/*
 /etc/init.d/postgresql start
-msfconsole -r /opt/msfconsole.rc
+msfconsole -r /opt/scripts/msfconsole.rc
