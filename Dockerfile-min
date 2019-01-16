@@ -76,8 +76,7 @@ RUN /etc/init.d/postgresql start && \
     su postgres -c 'echo -e "$MSF_DB_PASS\n$MSF_DB_PASS" | createuser -SRPD $MSF_DB_USER' && \
     su postgres -c 'createdb -O $MSF_DB_USER $MSF_DB'
 
-ADD msfconsole-min.sh /opt/msfconsole-min.sh
-ADD msfconsole.rc /opt/msfconsole.rc
+ADD scripts/ /opt/
 
 WORKDIR /opt/metasploit/
 
