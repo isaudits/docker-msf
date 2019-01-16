@@ -1,0 +1,3 @@
+<ruby>
+run_single("load msgrpc User=#{ENV['MSF_RPC_USER']} Pass=#{ENV['MSF_RPC_PASS']} ServerPort=#{ENV['MSF_RPC_PORT']} ServerHost=0.0.0.0 SSL=True")
+</ruby>

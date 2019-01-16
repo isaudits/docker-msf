@@ -4,11 +4,26 @@
 #
 ###############################################################################
 
+# Get the source directory of this file so we can reference launcher file in same directory without absolute path
+MSF_SCRIPT_SOURCE="${BASH_SOURCE[0]}"
+# While $SOURCE is a symlink, resolve it
+while [ -h "$MSF_SCRIPT_SOURCE" ]; do
+    MSF_SCRIPT_DIR="$( cd -P "$( dirname "$MSF_SCRIPT_SOURCE" )" && pwd )"
+    MSF_SCRIPT_SOURCE="$( readlink "$MSF_SCRIPT_SOURCE" )"
+    # If $SOURCE was a relative symlink (so no "/" as prefix, need to resolve it relative to the symlink base directory
+    [[ $MSF_SCRIPT_SOURCE != /* ]] && MSF_SCRIPT_SOURCE="$MSF_SCRIPT_DIR/$MSF_SCRIPT_SOURCE"
+done
+MSF_SCRIPT_DIR="$( cd -P "$( dirname "$MSF_SCRIPT_SOURCE" )" && pwd )"
+
 # Change this path to repo location
-msf_launcher="$HOME/git/docker-msf/msf.sh"
+msf_launcher="$MSF_SCRIPT_DIR/msf.sh"
 
 alias msfconsole='sh -c $msf_launcher'
-alias msflisten='$msf_launcher sh /opt/msfconsole.sh -q -r /opt/multihandler.rc'
+
+# msfconsole with windows reverse_https handler and msgrpc listening
+alias msflisten='$msf_launcher sh /opt/msfconsole.sh -q -r /opt/multihandler.rc -r /opt/msgrpc.rc'
+
+#NOTE - since these do not call the launcher script, no auto msfupdate or database support
 alias msfvenom='docker run -it --rm isaudits/msf msfvenom'
 alias msfrpc='docker run -it --rm isaudits/msf msfrpc'
 alias msfrpcd='docker run -it -p 55553:55553 --rm isaudits/msf msfrpcd'
