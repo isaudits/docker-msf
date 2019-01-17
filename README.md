@@ -18,6 +18,11 @@ intact so msfupdate will work. Also has Nmap installed
 unnecessary dependencies are removed after install. msfupdate does not work in the minimal install so you
 have to rebuild or re-pull to get framework updates.
 
+If you are viewing this on docker hub, clone the full repo at https://github.com/isaudits/docker-msf
+to get the launcher scripts and alias files described below.
+
+To see how the minimal version is used as a base image for other docker images, check out
+https://github.com/isaudits/docker-veil
 
 ## Build Notes
 main image:
@@ -62,7 +67,26 @@ msfvenom:
     # minimal version
     ./msf-minimal.sh msfvenom
 
+### Aliases
+Or, alias the commands in aliases to your .bash_aliases (kali) or .bash_profile (osx) and launch with aliases
+    source /path/to/docker-msf/aliases
+    
+Commands on the host machine will look like:
 
+    # basic msfconsole
+    msfconsole
+    
+    # add some options
+    msfconsole <options>
+    
+    # launch msfconsole with automatic windows reverse_https listener and msgrpc listener:
+    msflisten
+    
+    # generate some shellcode
+    msfvenom <options>
+
+Refer to aliases file to see all the available commands
+    
 --------------------------------------------------------------------------------
 
 Copyright 2018
