@@ -1,0 +1,6 @@
+#!/bin/bash
+set -ueo pipefail
+
+docker push isaudits/msf:full
+docker push isaudits/msf:minimal
+docker tag isaudits/msf:full isaudits/msf:latest
