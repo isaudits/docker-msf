@@ -1,7 +1,12 @@
 # docker-msf
+[![](https://images.microbadger.com/badges/image/isaudits/msf.svg)](https://microbadger.com/images/isaudits/msf)
+[![](https://images.microbadger.com/badges/version/isaudits/msf:full.svg)](https://microbadger.com/images/isaudits/msf:full)
+[![](https://images.microbadger.com/badges/version/isaudits/msf.svg)](https://microbadger.com/images/isaudits/msf)
+
+[![](https://images.microbadger.com/badges/image/isaudits/msf:minimal.svg)](https://microbadger.com/images/isaudits/msf:minimal)
+[![](https://images.microbadger.com/badges/version/isaudits/msf:minimal.svg)](https://microbadger.com/images/isaudits/msf:minimal)
 
 Docker implementation of Metasploit framework based upon Debian stable image
-
 
 ## Description
 
