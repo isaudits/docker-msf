@@ -10,11 +10,12 @@ Yeah, we know it's bigger than the official https://github.com/rapid7/metasploit
 * Smaller in size than Kali image with MSF installed
 * Has functional Postgres instance installed inline without having to use a linked Postgres image instance
 * Uses environment variables to configure defaults
+* Includes nmap
 
-This image has 2 build options with separate Dockerfiles:
-* msf - main image (larger in size: ~1.5 GB); use for standalone MSF instances. .git repo and dependencies are left
-intact so msfupdate will work. Also has Nmap installed
-* msf-minimal - stripped down image (reduced size: ~800 MB); use for image base for other images. .git repo and
+This image has 2 build tags with separate Dockerfiles:
+* full / latest - main image (larger in size: ~1.6 GB); use for standalone MSF instances. .git repo and dependencies are left
+intact so msfupdate will work. 
+* minimal - stripped down image (reduced size: ~900 MB); use for image base for other images. .git repo and
 unnecessary dependencies are removed after install. msfupdate does not work in the minimal install so you
 have to rebuild or re-pull to get framework updates.
 
@@ -25,25 +26,19 @@ To see how the minimal version is used as a base image for other docker images, 
 https://github.com/isaudits/docker-veil
 
 ## Build Notes
-main image:
 
-pull
+build images locally (this will build both versions; if you only need one, you can just pull that):
+
+    git clone https://github.com/isaudits/docker-msf
+    ./build.sh
+    
+pull main image only:
 
     docker pull isaudits/msf
     
-or
+pull minimal image only:
 
-    ./build.sh
-    
-minimal image:
-
-pull
-
-    docker pull isaudits/msfminimal
-    
-or
-
-    ./build-minimal.sh
+    docker pull isaudits/msf:minimal
     
 
 ## Usage

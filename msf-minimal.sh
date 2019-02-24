@@ -17,7 +17,7 @@ then
     -e MSF_LHOST=$HOST_IP \
     -v $HOME/.msf4:/home/msf/.msf4 \
     -v msf_pg_data:/var/lib/postgresql/9.6/main \
-    isaudits/msf-minimal $COMMAND
+    isaudits/msf:minimal $COMMAND
 else
     HOST_IP=$(ifconfig en0 | awk '/ *inet /{print $2}')
     echo "detected host ip: $HOST_IP"
@@ -26,6 +26,6 @@ else
     -e MSF_LHOST=$HOST_IP \
     -v $HOME/.msf4:/home/msf/.msf4 \
     -v msf_pg_data:/var/lib/postgresql/9.6/main \
-    isaudits/msf-minimal $COMMAND
+    isaudits/msf:minimal $COMMAND
 fi
 
