@@ -15,7 +15,7 @@ then
     docker run -it --rm \
     --net=host \
     -e MSF_LHOST=$HOST_IP \
-    -v $HOME/.msf4:/home/msf/.msf4 \
+    -v $HOME/.msf4:/root/.msf4 \
     -v msf_pg_data:/var/lib/postgresql/9.6/main \
     isaudits/msf $COMMAND
 else
@@ -24,7 +24,7 @@ else
     docker run -it --rm \
     -p 80:80 -p 443:443 -p 4443:4443 -p 4444:4444 -p 8080:8080 -p 8443:8443 -p 55553:55553 \
     -e MSF_LHOST=$HOST_IP \
-    -v $HOME/.msf4:/home/msf/.msf4 \
+    -v $HOME/.msf4:/root/.msf4 \
     -v msf_pg_data:/var/lib/postgresql/9.6/main \
     isaudits/msf $COMMAND
 fi
