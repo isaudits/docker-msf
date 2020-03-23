@@ -18,12 +18,12 @@ MSF_SCRIPT_DIR="$( cd -P "$( dirname "$MSF_SCRIPT_SOURCE" )" && pwd )"
 # Change this path to repo location
 msf_launcher="$MSF_SCRIPT_DIR/msf.sh"
 
-alias msfconsole='sh -c $msf_launcher'
+alias msfconsole="sh -c $msf_launcher"
 
 # msfconsole with windows reverse_https handler and msgrpc listening
-alias msflisten='$msf_launcher sh /opt/msfconsole.sh -q -r /opt/multihandler.rc -r /opt/msgrpc.rc'
+alias msflisten="$msf_launcher sh /opt/msfconsole.sh -q -r /opt/multihandler.rc -r /opt/msgrpc.rc"
 
 #NOTE - since these do not call the launcher script, no auto msfupdate or database support
-alias msfvenom='docker run -it --rm isaudits/msf msfvenom'
-alias msfrpc='docker run -it --rm isaudits/msf msfrpc'
-alias msfrpcd='docker run -it -p 55553:55553 --rm isaudits/msf msfrpcd'
+alias msfvenom="docker run -it --rm isaudits/msf msfvenom"
+alias msfrpc="docker run -it --rm isaudits/msf msfrpc"
+alias msfrpcd="docker run -it -p 55553:55553 --rm isaudits/msf msfrpcd"
