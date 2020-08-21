@@ -1,8 +1,5 @@
 # Idea from https://github.com/watersalesman/docker-images/tree/master/debian-metasploit
 # Basically the same thing but compressed the Metasploit layer and added some cleanup to reduce size
-# Build size ~ 1.25 GB
-# Note - once we automate build consider deleting .git folder to further reduce size
-# This will probably break msfupdate capability?
 
 FROM debian:stable
 
