@@ -10,7 +10,7 @@ RUN apt-get -y update && \
     apt-get install -y $PACKAGES_MSF && \
     git clone --depth=1 https://github.com/rapid7/metasploit-framework /opt/metasploit && \
     git config --global user.name 'msf' && git config --global user.email 'msf@example.org' && \
-    gem install os bundler:1.17.3 && \
+    gem install os bundler && \
     cd /opt/metasploit && bundle install && ./msfupdate && \
     ln -sf /opt/metasploit/msf* /usr/bin/ && \
     rm -rf /opt/metasploit/.git && \
