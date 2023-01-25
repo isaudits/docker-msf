@@ -11,6 +11,7 @@ Docker implementation of Metasploit framework based upon Debian stable image
 ## Description
 
 Yeah, we know it's bigger than the official https://github.com/rapid7/metasploit-framework version, but:
+* Multi-arch images for amd64 and arm64
 * Debian stable as opposed to Alpine for use as a base image for other debian-based tools (think Veil)
 * Smaller in size than Kali image with MSF installed
 * Has functional Postgres instance installed inline without having to use a linked Postgres image instance

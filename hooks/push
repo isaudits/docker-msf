@@ -1,6 +1,4 @@
 #!/bin/bash
 set -ueo pipefail
 
-docker push isaudits/msf:latest
-docker push isaudits/msf:minimal
-docker push isaudits/msf:full
+#Dummy push file to override docker hub push hook - buildx is handling image push

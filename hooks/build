@@ -4,17 +4,20 @@ set -ueo pipefail
 MSF_VERSION=$(curl -s https://raw.githubusercontent.com/rapid7/metasploit-framework/master/lib/metasploit/framework/version.rb | perl -n -e'/"(\d*\.\d*\.\d*)"/ && print $1')"-dev"
 
 # stolen from https://medium.com/microscaling-systems/labelling-automated-builds-on-docker-hub-f3d073fb8e1
-docker build --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
+docker buildx build --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
              --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
              --build-arg MSF_VERSION=$MSF_VERSION \
-             --pull -t isaudits/msf:base .
+             --platform linux/amd64,linux/arm64 \
+             --push -t isaudits/msf:base .
 
-docker build --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
+docker buildx build --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
              --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
              --build-arg MSF_VERSION=$MSF_VERSION \
-             -t isaudits/msf:full -t isaudits/msf:latest -f Dockerfile.full .
+             --platform linux/amd64,linux/arm64 \
+             --push -t isaudits/msf:full -t isaudits/msf:latest -f Dockerfile.full .
 
-docker build --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
+docker buildx build --build-arg VCS_REF="$(git rev-parse --short HEAD)" \
              --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
              --build-arg MSF_VERSION=$MSF_VERSION \
-             -t isaudits/msf:minimal -f Dockerfile.min .
+             --platform linux/amd64,linux/arm64 \
+             --push -t isaudits/msf:minimal -f Dockerfile.min .
