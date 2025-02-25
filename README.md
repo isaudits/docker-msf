@@ -18,18 +18,8 @@ Yeah, we know it's bigger than the official https://github.com/rapid7/metasploit
 * Uses environment variables to configure defaults
 * Includes nmap
 
-This image has 2 build tags with separate Dockerfiles:
-* full / latest - main image (larger in size: ~1.6 GB); use for standalone MSF instances. .git repo and dependencies are left
-intact so msfupdate will work. 
-* minimal - stripped down image (reduced size: ~900 MB); use for image base for other images. .git repo and
-unnecessary dependencies are removed after install. msfupdate does not work in the minimal install so you
-have to rebuild or re-pull to get framework updates.
-
 If you are viewing this on docker hub, clone the full repo at https://github.com/isaudits/docker-msf
 to get the launcher scripts and alias files described below.
-
-To see how the minimal version is used as a base image for other docker images, check out
-https://github.com/isaudits/docker-veil
 
 ## Build Notes
 
@@ -38,13 +28,9 @@ build images locally (this will build both versions; if you only need one, you c
     git clone https://github.com/isaudits/docker-msf
     ./build.sh
     
-pull main image only:
+pull image only:
 
     docker pull isaudits/msf
-    
-pull minimal image only:
-
-    docker pull isaudits/msf:minimal
     
 
 ## Usage
@@ -54,19 +40,11 @@ be interpreted as opposed to launching msfconsole.
 
 msfconsole with database support:
 
-    # full version
     ./msf.sh
-    
-    # minimal version
-    ./msf-minimal.sh
 
 msfvenom:
 
-    # full version
     ./msf.sh msfvenom
-    
-    # minimal version
-    ./msf-minimal.sh msfvenom
 
 ### Aliases
 Or, alias the commands in aliases to your .bash_aliases (kali) or .bash_profile (osx) and launch with aliases

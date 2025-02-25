@@ -1,6 +1,3 @@
-# Idea from https://github.com/watersalesman/docker-images/tree/master/debian-metasploit
-# Basically the same thing but compressed the Metasploit layer and added some cleanup to reduce size
-
 FROM debian:stable
 
 ENV LC_ALL C.UTF-8
@@ -14,42 +11,19 @@ ARG MSF_VERSION
 # Apt packages to install
 ENV PACKAGES "apt-utils \
         curl \
+        wget \
+        gnupg2 \
         git-core \
-        nmap \
-        libxml2 \
-        openssl \
         postgresql \
         postgresql-contrib \
-        ruby \
-        wget \
-        zlib1g"
-
-# Metasploit packages to install and remove at end of minimal build
-ENV PACKAGES_MSF "autoconf \
-        bison \
-        build-essential \
-        libapr1 \
-        libaprutil1 \
-        libcurl4-openssl-dev \
-        libgmp3-dev \
-        libpcap-dev \
-        libpq-dev \
-        libreadline6-dev \
-        libsqlite3-dev \
-        libssl-dev \
-        libsvn1 \
-        libtool \
-        libxml2-dev \
-        libxslt-dev \
-        libyaml-dev \
-        locate \
-        ncurses-dev \
-        ruby-dev \
-        xsel \
-        zlib1g-dev"
+        nmap"
 
 RUN apt-get -y update && \
     apt-get install -y $PACKAGES && \
+    echo 'deb http://apt.metasploit.com/ lucid main' > /etc/apt/sources.list.d/metasploit-framework.list && \
+    wget -O - http://apt.metasploit.com/metasploit-framework.gpg.key | apt-key add - && \
+    apt-get update && \
+    apt-get -y install metasploit-framework && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
