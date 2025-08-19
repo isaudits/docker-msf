@@ -20,13 +20,11 @@ ENV PACKAGES "apt-utils \
 
 RUN apt-get -y update && \
     apt-get install -y $PACKAGES && \
-    echo 'deb http://apt.metasploit.com/ lucid main' > /etc/apt/sources.list.d/metasploit-framework.list && \
-    wget -O - http://apt.metasploit.com/metasploit-framework.gpg.key | apt-key add - && \
-    apt-get update && \
-    apt-get -y install metasploit-framework && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && chmod 755 msfinstall && ./msfinstall
 
 ENV MSF_RPC_USER='admin' \
     MSF_RPC_PASS='changeyourpassword' \
