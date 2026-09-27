@@ -144,26 +144,24 @@ jobs:
         run: |
           docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
             $(printf '${{ env.DOCKERHUB_REPO }}@sha256:%s ' *)
-          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
-            $(printf '${{ env.GHCR_REPO }}@sha256:%s ' *)
 
       - name: Inspect image
         run: |
-          docker buildx imagetools inspect ${{ env.DOCKERHUB_REPO }}:${{ steps.meta.outputs.version }}
-          docker buildx imagetools inspect ${{ env.GHCR_REPO }}:${{ steps.meta.outputs.version }}
+          for image in ${{ env.DOCKERHUB_REPO }} ${{ env.GHCR_REPO }}; do
+            for attempt in 1 2 3; do
+              docker buildx imagetools inspect "$image:${{ steps.meta.outputs.version }}" && break
+              [ "$attempt" -lt 3 ] || exit 1
+              sleep 15
+            done
+          done
 
   cleanup:
     runs-on: ubuntu-latest
     needs:
       - merge
     steps:
-      - name: Set ENV variables
-        run: |
-          echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV
+      # multi-arch aware: keeps platform manifests referenced by tagged images
       - name: Cleanup untagged packages
-        uses: actions/delete-package-versions@v5
-        with: 
-          package-name: ${{ env.REPO_NAME}}
-          package-type: 'container'
-          min-versions-to-keep: 0
-          delete-only-untagged-versions: 'true'
+        uses: dataaxiom/ghcr-cleanup-action@v1.2.2
+        with:
+          delete-untagged: true
